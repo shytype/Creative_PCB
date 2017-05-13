@@ -1,0 +1,157 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\Administrator\Desktop\ÖÇÄÜ³µ¶Ó\creative2016-lqj\creative2016.PcbDoc
+Date     : 2016/6/1
+Time     : 17:16:23
+
+WARNING: Your board contains 2 shelved polygons - copper connectivity will not be reported correctly. Unshelve polygons and re-run DRC check before  producing manufacturing outputs.
+   Polygon named: Bottom Layer-No Net In net GND On Bottom Layer
+   Polygon named: Bottom Layer-No Net In net GND On Top Layer
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=10mil) (All),(All)
+   Violation between Text "R7" (2483mil,1629mil)  Top Overlay and 
+                     Track (2480mil,1665mil)(2480mil,1725mil)  Top Overlay
+   Violation between Text "2" (2675mil,1660mil)  Top Overlay and 
+                     Track (2725mil,1530mil)(2725mil,1730mil)  Top Overlay
+   Violation between Text "1" (2695mil,1560mil)  Top Overlay and 
+                     Track (2725mil,1530mil)(2725mil,1730mil)  Top Overlay
+   Violation between Text "R19" (2637mil,1509mil)  Top Overlay and 
+                     Track (2725mil,1530mil)(2725mil,1730mil)  Top Overlay
+   Violation between Text "3" (2935mil,1560mil)  Top Overlay and 
+                     Track (2925mil,1530mil)(2925mil,1730mil)  Top Overlay
+   Violation between Text "4" (2935mil,1660mil)  Top Overlay and 
+                     Track (2925mil,1530mil)(2925mil,1730mil)  Top Overlay
+   Violation between Text "R19" (2637mil,1509mil)  Top Overlay and 
+                     Track (2725mil,1530mil)(2925mil,1530mil)  Top Overlay
+   Violation between Text "TF1" (127mil,3418mil)  Top Overlay and 
+                     Track (136.328mil,2482.362mil)(136.328mil,3701.654mil)  Top Overlay
+   Violation between Text "C7" (1814mil,1102mil)  Bottom Overlay and 
+                     Track (1725mil,1145mil)(1975mil,1145mil)  Bottom Overlay
+   Violation between Text "C8" (1949mil,1102mil)  Bottom Overlay and 
+                     Track (1725mil,1145mil)(1975mil,1145mil)  Bottom Overlay
+   Violation between Text "R20" (2513mil,1739mil)  Bottom Overlay and 
+                     Track (2515mil,1770mil)(2515mil,1830mil)  Bottom Overlay
+Rule Violations :11
+
+Processing Rule : Silk To Solder Mask (Clearance=0mil) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=1mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
+   Violation between Hole Size Constraint (118.11mil > 100mil) : Pad OLED-0(1180.63mil,3610.708mil)  Multi-Layer
+   Violation between Hole Size Constraint (118.11mil > 100mil) : Pad OLED-0(245.59mil,3610.708mil)  Multi-Layer
+   Violation between Hole Size Constraint (118.11mil > 100mil) : Pad OLED-0(1180.63mil,2573.308mil)  Multi-Layer
+   Violation between Hole Size Constraint (118.11mil > 100mil) : Pad OLED-0(245.59mil,2573.308mil)  Multi-Layer
+Rule Violations :4
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U6-7 (1604.764,3383.228mil) And Pad U6-6 (1604.764,3408.818mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C4-8 (2465.512,2207.992mil) And Pad C4-6 (2497.008,2207.992mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C4-4 (2528.504,2207.992mil) And Pad C4-2 (2560,2207.992mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U3-33 (1811.536,1368.82mil) And Pad U3-35 (1850.906,1368.82mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U3-16 (1595,1624.726mil) And Pad U3-14 (1595,1664.096mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U3-18 (1595,1585.356mil) And Pad U3-16 (1595,1624.726mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U6-8 (1825.236,3383.228mil) And Pad U6-10 (1825.236,3434.41mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U6-6 (1604.764,3408.818mil) And Pad U6-4 (1604.764,3460mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U3-86 (1949.33,1998.74mil) And Pad U3-83 (2008.386,1998.74mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C14-1 (1343.662,1512.5mil) And Pad C9-1 (1343.662,1610mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C13-1 (1343.662,1415mil) And Pad C14-1 (1343.662,1512.5mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P1-14 (1595,2280mil) And Pad P1-12 (1695,2280mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S6-4 (2600,102.52mil) And Pad S6-3 (2700,102.52mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C16-1 (1925,1768.662mil) And Pad C12-1 (2025,1768.662mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P1-8 (1895,2280mil) And Pad P1-6 (1995,2280mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P1-6 (1995,2280mil) And Pad P1-4 (2095,2280mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P1-4 (2095,2280mil) And Pad P1-2 (2195,2280mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C15-1 (1780,1606.338mil) And Pad C10-1 (1880,1606.338mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S6-3 (2700,102.52mil) And Pad S6-2 (2800,102.52mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S6-2 (2800,102.52mil) And Pad S6-1 (2900,102.52mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C7-1 (1785,968.662mil) And Pad C8-1 (1920,968.662mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U3-69 (2224.92,1801.89mil) And Pad R22-2 (2398.662,1800mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C6-1 (825,3013.662mil) And Pad C5-2 (950,2960mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C22-1 (3015,1880mil) And Pad R26-2 (3180,1896.338mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U6-8 (1825.236,3383.228mil) And Pad OE1-2 (1990,3400mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U4-6 (2940,2055.512mil) And Pad U4-3 (2940,2244.488mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad OE0-2 (1420,3400mil) And Pad U6-6 (1604.764,3408.818mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad SS2-4 (883.334,405mil) And Pad SS3-4 (1090,405mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad SS0-4 (470,405mil) And Pad SS1-4 (676.666,405mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S2-2 (2355,3030mil) And Pad S3-2 (2590,3030mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S4-2 (2830,3030mil) And Pad S5-2 (3065,3030mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S6-1 (2900,102.52mil) And Pad R27-2 (3060,218.662mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U3-69 (2224.92,1801.89mil) And Pad C11-1 (2295,1583.662mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad MOTOR0-2 (2390,3405mil) And Pad MOTOR1-2 (2680,3405mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad TF1-6 (698.82,3187.954mil) And Pad C6-1 (825,3013.662mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad POWER_0-8 (3420,2516.024mil) And Pad HELM0-3 (3440,2225mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad WIFI-1 (409.804,2040.196mil) And Pad 6500-2 (430,2385mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad L3-1 (2235,1208.662mil) And Pad C11-1 (2295,1583.662mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad SS3-4 (1090,405mil) And Pad RFID-2 (1535,415mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C5-2 (950,2960mil) And Pad OLED-7 (1010,2540mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad RFID-2 (1535,415mil) And Pad BT-3 (1940,320mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad 6500-2 (430,2385mil) And Pad L3G-4 (780,2210mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S1-1 (1965,2865mil) And Pad S2-2 (2355,3030mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad L3-1 (2235,1208.662mil) And Pad R25-2 (2398.662,800mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad Reset-2 (175,915mil) And Pad SS0-4 (470,405mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C4-6 (2497.008,2207.992mil) And Pad C4-4 (2528.504,2207.992mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P1-12 (1695,2280mil) And Pad P1-8 (1895,2280mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U3-16 (1595,1624.726mil) And Pad C15-1 (1780,1606.338mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad SS1-4 (676.666,405mil) And Pad SS2-4 (883.334,405mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C10-1 (1880,1606.338mil) And Pad C16-1 (1925,1768.662mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U6-7 (1604.764,3383.228mil) And Pad U6-8 (1825.236,3383.228mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C12-1 (2025,1768.662mil) And Pad U3-69 (2224.92,1801.89mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S3-2 (2590,3030mil) And Pad S4-2 (2830,3030mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U3-83 (2008.386,1998.74mil) And Pad C12-1 (2025,1768.662mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U4-6 (2940,2055.512mil) And Pad C22-1 (3015,1880mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C9-1 (1343.662,1610mil) And Pad U3-16 (1595,1624.726mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U3-35 (1850.906,1368.82mil) And Pad C10-1 (1880,1606.338mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad OE1-2 (1990,3400mil) And Pad MOTOR0-2 (2390,3405mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C7-1 (1785,968.662mil) And Pad U3-33 (1811.536,1368.82mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U4-3 (2940,2244.488mil) And Pad HELM0-3 (3440,2225mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad L3G-4 (780,2210mil) And Pad OLED-7 (1010,2540mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad BT-3 (1940,320mil) And Pad S6-4 (2600,102.52mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P1-6 (1995,2280mil) And Pad U3-83 (2008.386,1998.74mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P1-2 (2195,2280mil) And Pad C4-8 (2465.512,2207.992mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S2-2 (2355,3030mil) And Pad MOTOR0-2 (2390,3405mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C4-2 (2560,2207.992mil) And Pad U4-3 (2940,2244.488mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C8-1 (1920,968.662mil) And Pad BT-3 (1940,320mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad OLED-7 (1010,2540mil) And Pad P1-14 (1595,2280mil)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad S1-1 (1965,2865mil) And Pad P1-6 (1995,2280mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad C18-1 (2668.662,1360mil) And Pad R19-1 (2668.662,1450mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad EMS0&1-2 (2775,1680mil) And Pad EMS0&1-4 (2875,1680mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Track on layer Top Layer (3060,848.662mil) And Pad R21-1 (3155,853.662mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad R22-1 (2481.338,1800mil) And Pad R7-1 (2513.662,1570mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad C18-1 (2668.662,1360mil) And Pad C19-1 (2855,1208.662mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad R18-2 (3151.338,1405mil) And Pad C20-1 (3330,1208.662mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad R18-2 (3151.338,1405mil) And Pad R26-1 (3180,1813.662mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad R25-1 (2481.338,800mil) And Track on layer Top Layer (3060,848.662mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad R7-1 (2513.662,1570mil) And Pad R19-1 (2668.662,1450mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad R19-1 (2668.662,1450mil) And Pad EMS0&1-2 (2775,1680mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad EMS0&1-4 (2875,1680mil) And Pad R26-1 (3180,1813.662mil)
+   Violation between Un-Routed Net Constraint: Net GND_ANALOG Between Pad R21-1 (3155,853.662mil) And Pad C20-1 (3330,1208.662mil)
+   Violation between Un-Routed Net Constraint: Net BAT_5(1) Between Track on layer Top Layer (2390,3305mil) And Pad MOTOR1-1 (2680,3305mil)
+   Violation between Un-Routed Net Constraint: Net BAT_5(1) Between Pad OE0-1 (1420,3300mil) And Track on layer Bottom Layer (1990,3300mil)
+Rule Violations :83
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+
+Violations Detected : 98
+Time Elapsed        : 00:00:00

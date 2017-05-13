@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=BAT_3.3(1) Pin=6500-1
+Removed Pin From Net: NetName=GND Pin=6500-2
+Removed Pin From Net: NetName=PC2 Pin=6500-3
+Removed Pin From Net: NetName=PE3 Pin=6500-4
+Removed Pin From Net: NetName=BAT_5(1) Pin=RFID-1
+Removed Pin From Net: NetName=GND Pin=RFID-2
+Removed Member From Class: ClassName=Total Member=6500
+Removed Member From Class: ClassName=Total Member=RFID
+Added Room: Name=Total
+Added Room: Name=WiFi

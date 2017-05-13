@@ -1,0 +1,663 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://D:\Users\Public\Documents\Altium\AD13\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">2016/6/1</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">17:16:23</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc" class="file"><acronym title="C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc">C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">2</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">98</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="IDYNJRNCSDSPHNIINXVDPW3BNTZL2INTHRGP2P4RE5NRQF2BIVXL2O"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID1MICR1XT5TKHHBSXWMJHBMCHYBNGOIPNSUVINFEYUNT2FUMZULFD">Your board contains 2 shelved polygons - copper connectivity will not be reported correctly. Unshelve polygons and re-run DRC check before  producing manufacturing outputs.</a></td>
+<td class="column2">2</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">2</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDICXNB5FMR3HIF3G1ETY1UIATWCDXLMLM1VCMO1BHHY2FTBCCEB0E">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWIGXP15KVWUFOAYFRXD25EPV1PLIZINSWPYSPDFKEDCKONDES4UE">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">11</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID4AR0TKJAKKDVDRTBOS5ME5QLKTEX2WADCK0CFG3M55VXMKM1XY">Silk To Solder Mask (Clearance=0mil) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBEMAOXAGKF5RZD2Q4LV2UZDFNVM5Y22YKZCWZFZEMG4JPNXG3KC">Minimum Solder Mask Sliver (Gap=1mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJWASBJ3OX543IDPNZBT2UJU3HCJ4V2XMM4J2OWMBKGR0A32MJHEB">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDV153SY00KQPQIYPMRSI54WROHGMASMNOWKWZZ0DKTIZT1AUI5L0O">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDNZZLQPGETNJFOXPOHWGMV5U3ECJZVZIPDHAEFCCWDIR003GHZLMI">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDJ4TOK4TZBR0BH2UAGP51T5EBKP3SNPTNU4PJ14LWLI5SZCXODOAM">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDZF0SBC5UKWL5KNOYLZFCQFTGBOD35NUQS25FWHHYYUPX5PJNTWUF">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDG1MDWF2SPA4FP3MFA0MSBV1OEC2RAIZCNBDFWTNCZD0AVHQ4OPSB">Clearance Constraint (Gap=6mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3X1CXCOBFK5BCJIO4KB5FDPWPOU5323W5DFSW5B1YV4QMKDIA2FC">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">83</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5VYXSUBFGGWSKTPBE2RC2ZFXPAC43RTP3KM1WI4PDZ5U3VE4E0">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">98</td>
+</tr>
+</table><br><hr><a name="IDQ3BT5Q4R2JGVPXFK0DLSL2FIPMGXYG4Q2DJNU5HJDHNWCFZOKHZD"><h2>Warnings</h2></a><a name="ID1MICR1XT5TKHHBSXWMJHBMCHYBNGOIPNSUVINFEYUNT2FUMZULFD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="warning">Your board contains 2 shelved polygons - copper connectivity will not be reported correctly. Unshelve polygons and re-run DRC check before  producing manufacturing outputs.</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1">Polygon named: Bottom Layer-No Net In net GND On Bottom Layer</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1">Polygon named: Bottom Layer-No Net In net GND On Top Layer</td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><hr><a name="IDWIGXP15KVWUFOAYFRXD25EPV1PLIZINSWPYSPDFKEDCKONDES4UE"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3698mil|Location2.X=3757.984mil|Location1.Y=2734mil|Location2.Y=2773.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3698mil|Location2.X=3757.984mil|Location1.Y=2734mil|Location2.Y=2773.99mil|Absolute=True">Text "R7" (2483mil,1629mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3697.5mil|Location2.X=3702.5mil|Location1.Y=2772.5mil|Location2.Y=2837.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3697.5mil|Location2.X=3702.5mil|Location1.Y=2772.5mil|Location2.Y=2837.5mil|Absolute=True">Track (2480mil,1665mil)(2480mil,1725mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3887mil|Location2.X=3936.323mil|Location1.Y=2762mil|Location2.Y=2827.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3887mil|Location2.X=3936.323mil|Location1.Y=2762mil|Location2.Y=2827.984mil|Absolute=True">Text "2" (2675mil,1660mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3941.063mil|Location2.X=3948.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3941.063mil|Location2.X=3948.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True">Track (2725mil,1530mil)(2725mil,1730mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3907mil|Location2.X=3939.661mil|Location1.Y=2662mil|Location2.Y=2727.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3907mil|Location2.X=3939.661mil|Location1.Y=2662mil|Location2.Y=2727.984mil|Absolute=True">Text "1" (2695mil,1560mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3941.063mil|Location2.X=3948.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3941.063mil|Location2.X=3948.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True">Track (2725mil,1530mil)(2725mil,1730mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3852mil|Location2.X=3936.976mil|Location1.Y=2614mil|Location2.Y=2653.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3852mil|Location2.X=3936.976mil|Location1.Y=2614mil|Location2.Y=2653.99mil|Absolute=True">Text "R19" (2637mil,1509mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3941.063mil|Location2.X=3948.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3941.063mil|Location2.X=3948.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True">Track (2725mil,1530mil)(2725mil,1730mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4147mil|Location2.X=4196.323mil|Location1.Y=2662mil|Location2.Y=2727.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4147mil|Location2.X=4196.323mil|Location1.Y=2662mil|Location2.Y=2727.984mil|Absolute=True">Text "3" (2935mil,1560mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4141.063mil|Location2.X=4148.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4141.063mil|Location2.X=4148.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True">Track (2925mil,1530mil)(2925mil,1730mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4147mil|Location2.X=4196.323mil|Location1.Y=2762mil|Location2.Y=2827.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4147mil|Location2.X=4196.323mil|Location1.Y=2762mil|Location2.Y=2827.984mil|Absolute=True">Text "4" (2935mil,1660mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4141.063mil|Location2.X=4148.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4141.063mil|Location2.X=4148.937mil|Location1.Y=2636.063mil|Location2.Y=2843.937mil|Absolute=True">Track (2925mil,1530mil)(2925mil,1730mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3852mil|Location2.X=3936.976mil|Location1.Y=2614mil|Location2.Y=2653.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3852mil|Location2.X=3936.976mil|Location1.Y=2614mil|Location2.Y=2653.99mil|Absolute=True">Text "R19" (2637mil,1509mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3941.063mil|Location2.X=4148.937mil|Location1.Y=2636.063mil|Location2.Y=2643.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3941.063mil|Location2.X=4148.937mil|Location1.Y=2636.063mil|Location2.Y=2643.937mil|Absolute=True">Track (2725mil,1530mil)(2925mil,1530mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1342mil|Location2.X=1421.977mil|Location1.Y=4523mil|Location2.Y=4562.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1342mil|Location2.X=1421.977mil|Location1.Y=4523mil|Location2.Y=4562.99mil|Absolute=True">Text "TF1" (127mil,3418mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1352.391mil|Location2.X=1360.265mil|Location1.Y=3588.425mil|Location2.Y=4815.591mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1352.391mil|Location2.X=1360.265mil|Location1.Y=3588.425mil|Location2.Y=4815.591mil|Absolute=True">Track (136.328mil,2482.362mil)(136.328mil,3701.654mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2979.016mil|Location2.X=3039mil|Location1.Y=2207mil|Location2.Y=2246.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2979.016mil|Location2.X=3039mil|Location1.Y=2207mil|Location2.Y=2246.99mil|Absolute=True">Text "C7" (1814mil,1102mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2942.5mil|Location2.X=3197.5mil|Location1.Y=2252.5mil|Location2.Y=2257.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2942.5mil|Location2.X=3197.5mil|Location1.Y=2252.5mil|Location2.Y=2257.5mil|Absolute=True">Track (1725mil,1145mil)(1975mil,1145mil)  Bottom Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3114.016mil|Location2.X=3174mil|Location1.Y=2207mil|Location2.Y=2246.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3114.016mil|Location2.X=3174mil|Location1.Y=2207mil|Location2.Y=2246.99mil|Absolute=True">Text "C8" (1949mil,1102mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2942.5mil|Location2.X=3197.5mil|Location1.Y=2252.5mil|Location2.Y=2257.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2942.5mil|Location2.X=3197.5mil|Location1.Y=2252.5mil|Location2.Y=2257.5mil|Absolute=True">Track (1725mil,1145mil)(1975mil,1145mil)  Bottom Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.026mil|Location2.X=3738mil|Location1.Y=2844mil|Location2.Y=2883.99mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.026mil|Location2.X=3738mil|Location1.Y=2844mil|Location2.Y=2883.99mil|Absolute=True">Text "R20" (2513mil,1739mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3732.5mil|Location2.X=3737.5mil|Location1.Y=2877.5mil|Location2.Y=2942.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3732.5mil|Location2.X=3737.5mil|Location1.Y=2877.5mil|Location2.Y=2942.5mil|Absolute=True">Track (2515mil,1770mil)(2515mil,1830mil)  Bottom Overlay</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDV153SY00KQPQIYPMRSI54WROHGMASMNOWKWZZ0DKTIZT1AUI5L0O"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.95mil|Location2.X=2460.31mil|Location1.Y=4661.028mil|Location2.Y=4780.388mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.95mil|Location2.X=2460.31mil|Location1.Y=4661.028mil|Location2.Y=4780.388mil|Absolute=True">Hole Size Constraint (118.11mil &gt; 100mil) : Pad OLED-0(1180.63mil,3610.708mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1405.91mil|Location2.X=1525.27mil|Location1.Y=4661.028mil|Location2.Y=4780.388mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1405.91mil|Location2.X=1525.27mil|Location1.Y=4661.028mil|Location2.Y=4780.388mil|Absolute=True">Hole Size Constraint (118.11mil &gt; 100mil) : Pad OLED-0(245.59mil,3610.708mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.95mil|Location2.X=2460.31mil|Location1.Y=3623.628mil|Location2.Y=3742.988mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2340.95mil|Location2.X=2460.31mil|Location1.Y=3623.628mil|Location2.Y=3742.988mil|Absolute=True">Hole Size Constraint (118.11mil &gt; 100mil) : Pad OLED-0(1180.63mil,2573.308mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1405.91mil|Location2.X=1525.27mil|Location1.Y=3623.628mil|Location2.Y=3742.988mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1405.91mil|Location2.X=1525.27mil|Location1.Y=3623.628mil|Location2.Y=3742.988mil|Absolute=True">Hole Size Constraint (118.11mil &gt; 100mil) : Pad OLED-0(245.59mil,2573.308mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="ID3X1CXCOBFK5BCJIO4KB5FDPWPOU5323W5DFSW5B1YV4QMKDIA2FC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2793.205mil|Location2.X=2856.323mil|Location1.Y=4482.338mil|Location2.Y=4529.708mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2793.205mil|Location2.X=2856.323mil|Location1.Y=4482.338mil|Location2.Y=4529.708mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U6-7 (1604.764,3383.228mil) And Pad U6-6 (1604.764,3408.818mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3668.914mil|Location2.X=3733.606mil|Location1.Y=3302.181mil|Location2.Y=3333.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3668.914mil|Location2.X=3733.606mil|Location1.Y=3302.181mil|Location2.Y=3333.803mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C4-8 (2465.512,2207.992mil) And Pad C4-6 (2497.008,2207.992mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3731.906mil|Location2.X=3796.598mil|Location1.Y=3302.181mil|Location2.Y=3333.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3731.906mil|Location2.X=3796.598mil|Location1.Y=3302.181mil|Location2.Y=3333.803mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C4-4 (2528.504,2207.992mil) And Pad C4-2 (2560,2207.992mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3022.536mil|Location2.X=3079.906mil|Location1.Y=2435.45mil|Location2.Y=2522.19mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3022.536mil|Location2.X=3079.906mil|Location1.Y=2435.45mil|Location2.Y=2522.19mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-33 (1811.536,1368.82mil) And Pad U3-35 (1850.906,1368.82mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2771.63mil|Location2.X=2858.37mil|Location1.Y=2725.726mil|Location2.Y=2783.096mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2771.63mil|Location2.X=2858.37mil|Location1.Y=2725.726mil|Location2.Y=2783.096mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-16 (1595,1624.726mil) And Pad U3-14 (1595,1664.096mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2771.63mil|Location2.X=2858.37mil|Location1.Y=2686.356mil|Location2.Y=2743.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2771.63mil|Location2.X=2858.37mil|Location1.Y=2686.356mil|Location2.Y=2743.726mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-18 (1595,1585.356mil) And Pad U3-16 (1595,1624.726mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3013.677mil|Location2.X=3076.795mil|Location1.Y=4482.338mil|Location2.Y=4555.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3013.677mil|Location2.X=3076.795mil|Location1.Y=4482.338mil|Location2.Y=4555.3mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U6-8 (1825.236,3383.228mil) And Pad U6-10 (1825.236,3434.41mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2793.205mil|Location2.X=2856.323mil|Location1.Y=4507.928mil|Location2.Y=4580.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2793.205mil|Location2.X=2856.323mil|Location1.Y=4507.928mil|Location2.Y=4580.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U6-6 (1604.764,3408.818mil) And Pad U6-4 (1604.764,3460mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3160.33mil|Location2.X=3237.386mil|Location1.Y=3065.37mil|Location2.Y=3152.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3160.33mil|Location2.X=3237.386mil|Location1.Y=3065.37mil|Location2.Y=3152.11mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-86 (1949.33,1998.74mil) And Pad U3-83 (2008.386,1998.74mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.008mil|Location2.X=2589.316mil|Location1.Y=2588.972mil|Location2.Y=2753.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.008mil|Location2.X=2589.316mil|Location1.Y=2588.972mil|Location2.Y=2753.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C14-1 (1343.662,1512.5mil) And Pad C9-1 (1343.662,1610mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.008mil|Location2.X=2589.316mil|Location1.Y=2491.472mil|Location2.Y=2656.028mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.008mil|Location2.X=2589.316mil|Location1.Y=2491.472mil|Location2.Y=2656.028mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C13-1 (1343.662,1415mil) And Pad C14-1 (1343.662,1512.5mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2781.472mil|Location2.X=2948.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2781.472mil|Location2.X=2948.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-14 (1595,2280mil) And Pad P1-12 (1695,2280mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3786.472mil|Location2.X=3953.528mil|Location1.Y=1169.15mil|Location2.Y=1255.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3786.472mil|Location2.X=3953.528mil|Location1.Y=1169.15mil|Location2.Y=1255.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S6-4 (2600,102.52mil) And Pad S6-3 (2700,102.52mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3111.472mil|Location2.X=3278.528mil|Location1.Y=2853.008mil|Location2.Y=2904.316mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3111.472mil|Location2.X=3278.528mil|Location1.Y=2853.008mil|Location2.Y=2904.316mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C16-1 (1925,1768.662mil) And Pad C12-1 (2025,1768.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.472mil|Location2.X=3248.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.472mil|Location2.X=3248.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-8 (1895,2280mil) And Pad P1-6 (1995,2280mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3181.472mil|Location2.X=3348.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3181.472mil|Location2.X=3348.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-6 (1995,2280mil) And Pad P1-4 (2095,2280mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3281.472mil|Location2.X=3448.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3281.472mil|Location2.X=3448.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-4 (2095,2280mil) And Pad P1-2 (2195,2280mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2966.472mil|Location2.X=3133.528mil|Location1.Y=2690.684mil|Location2.Y=2741.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2966.472mil|Location2.X=3133.528mil|Location1.Y=2690.684mil|Location2.Y=2741.992mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C15-1 (1780,1606.338mil) And Pad C10-1 (1880,1606.338mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3886.472mil|Location2.X=4053.528mil|Location1.Y=1169.15mil|Location2.Y=1255.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3886.472mil|Location2.X=4053.528mil|Location1.Y=1169.15mil|Location2.Y=1255.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S6-3 (2700,102.52mil) And Pad S6-2 (2800,102.52mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3986.472mil|Location2.X=4153.528mil|Location1.Y=1169.15mil|Location2.Y=1255.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3986.472mil|Location2.X=4153.528mil|Location1.Y=1169.15mil|Location2.Y=1255.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S6-2 (2800,102.52mil) And Pad S6-1 (2900,102.52mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2971.472mil|Location2.X=3173.528mil|Location1.Y=2053.008mil|Location2.Y=2104.316mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2971.472mil|Location2.X=3173.528mil|Location1.Y=2053.008mil|Location2.Y=2104.316mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C7-1 (1785,968.662mil) And Pad C8-1 (1920,968.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3401.55mil|Location2.X=3644.316mil|Location1.Y=2876.472mil|Location2.Y=2943.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3401.55mil|Location2.X=3644.316mil|Location1.Y=2876.472mil|Location2.Y=2943.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-69 (2224.92,1801.89mil) And Pad R22-2 (2398.662,1800mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2011.473mil|Location2.X=2204mil|Location1.Y=4036mil|Location2.Y=4149.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2011.473mil|Location2.X=2204mil|Location1.Y=4036mil|Location2.Y=4149.315mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C6-1 (825,3013.662mil) And Pad C5-2 (950,2960mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4201mil|Location2.X=4433.528mil|Location1.Y=2956mil|Location2.Y=3031.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4201mil|Location2.X=4433.528mil|Location1.Y=2956mil|Location2.Y=3031.992mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C22-1 (3015,1880mil) And Pad R26-2 (3180,1896.338mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3013.677mil|Location2.X=3243.528mil|Location1.Y=4476.472mil|Location2.Y=4543.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3013.677mil|Location2.X=3243.528mil|Location1.Y=4476.472mil|Location2.Y=4543.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U6-8 (1825.236,3383.228mil) And Pad OE1-2 (1990,3400mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.189mil|Location2.X=4175.811mil|Location1.Y=3118.205mil|Location2.Y=3401.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.189mil|Location2.X=4175.811mil|Location1.Y=3118.205mil|Location2.Y=3401.795mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-6 (2940,2055.512mil) And Pad U4-3 (2940,2244.488mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2606.472mil|Location2.X=2856.323mil|Location1.Y=4476.472mil|Location2.Y=4543.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2606.472mil|Location2.X=2856.323mil|Location1.Y=4476.472mil|Location2.Y=4543.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad OE0-2 (1420,3400mil) And Pad U6-6 (1604.764,3408.818mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2069.807mil|Location2.X=2343.528mil|Location1.Y=1481.473mil|Location2.Y=1548.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2069.807mil|Location2.X=2343.528mil|Location1.Y=1481.473mil|Location2.Y=1548.527mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SS2-4 (883.334,405mil) And Pad SS3-4 (1090,405mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1656.473mil|Location2.X=1930.194mil|Location1.Y=1481.473mil|Location2.Y=1548.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1656.473mil|Location2.X=1930.194mil|Location1.Y=1481.473mil|Location2.Y=1548.527mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SS0-4 (470,405mil) And Pad SS1-4 (676.666,405mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536mil|Location2.X=3849mil|Location1.Y=4086mil|Location2.Y=4194mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536mil|Location2.X=3849mil|Location1.Y=4086mil|Location2.Y=4194mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S2-2 (2355,3030mil) And Pad S3-2 (2590,3030mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4011mil|Location2.X=4324mil|Location1.Y=4086mil|Location2.Y=4194mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4011mil|Location2.X=4324mil|Location1.Y=4086mil|Location2.Y=4194mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S4-2 (2830,3030mil) And Pad S5-2 (3065,3030mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4086.472mil|Location2.X=4313.528mil|Location1.Y=1169.15mil|Location2.Y=1354.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4086.472mil|Location2.X=4313.528mil|Location1.Y=1169.15mil|Location2.Y=1354.315mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S6-1 (2900,102.52mil) And Pad R27-2 (3060,218.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3401.55mil|Location2.X=3548.528mil|Location1.Y=2668.008mil|Location2.Y=2920.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3401.55mil|Location2.X=3548.528mil|Location1.Y=2668.008mil|Location2.Y=2920.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-69 (2224.92,1801.89mil) And Pad C11-1 (2295,1583.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3576.472mil|Location2.X=3933.528mil|Location1.Y=4481.472mil|Location2.Y=4548.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3576.472mil|Location2.X=3933.528mil|Location1.Y=4481.472mil|Location2.Y=4548.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad MOTOR0-2 (2390,3405mil) And Pad MOTOR1-2 (2680,3405mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1883.324mil|Location2.X=2078.528mil|Location1.Y=4098.008mil|Location2.Y=4315.734mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1883.324mil|Location2.X=2078.528mil|Location1.Y=4098.008mil|Location2.Y=4315.734mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad TF1-6 (698.82,3187.954mil) And Pad C6-1 (825,3013.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4606.472mil|Location2.X=4693.528mil|Location1.Y=3301.472mil|Location2.Y=3659.552mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4606.472mil|Location2.X=4693.528mil|Location1.Y=3301.472mil|Location2.Y=3659.552mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad POWER_0-8 (3420,2516.024mil) And Pad HELM0-3 (3440,2225mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1596.276mil|Location2.X=1683.527mil|Location1.Y=3116.669mil|Location2.Y=3528.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1596.276mil|Location2.X=1683.527mil|Location1.Y=3116.669mil|Location2.Y=3528.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad WIFI-1 (409.804,2040.196mil) And Pad 6500-2 (430,2385mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3421.472mil|Location2.X=3548.528mil|Location1.Y=2293.008mil|Location2.Y=2719.316mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3421.472mil|Location2.X=3548.528mil|Location1.Y=2293.008mil|Location2.Y=2719.316mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad L3-1 (2235,1208.662mil) And Pad C11-1 (2295,1583.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2276.472mil|Location2.X=2788.528mil|Location1.Y=1481.473mil|Location2.Y=1558.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2276.472mil|Location2.X=2788.528mil|Location1.Y=1481.473mil|Location2.Y=1558.527mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SS3-4 (1090,405mil) And Pad RFID-2 (1535,415mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2136mil|Location2.X=2263.528mil|Location1.Y=3616.472mil|Location2.Y=4104mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2136mil|Location2.X=2263.528mil|Location1.Y=3616.472mil|Location2.Y=4104mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C5-2 (950,2960mil) And Pad OLED-7 (1010,2540mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2721.472mil|Location2.X=3193.528mil|Location1.Y=1396.473mil|Location2.Y=1558.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2721.472mil|Location2.X=3193.528mil|Location1.Y=1396.473mil|Location2.Y=1558.527mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad RFID-2 (1535,415mil) And Pad BT-3 (1940,320mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1616.473mil|Location2.X=2033.527mil|Location1.Y=3286.472mil|Location2.Y=3528.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1616.473mil|Location2.X=2033.527mil|Location1.Y=3286.472mil|Location2.Y=3528.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad 6500-2 (430,2385mil) And Pad L3G-4 (780,2210mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3131mil|Location2.X=3614mil|Location1.Y=3936mil|Location2.Y=4194mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3131mil|Location2.X=3614mil|Location1.Y=3936mil|Location2.Y=4194mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S1-1 (1965,2865mil) And Pad S2-2 (2355,3030mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3421.472mil|Location2.X=3644.316mil|Location1.Y=1876.473mil|Location2.Y=2344.316mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3421.472mil|Location2.X=3644.316mil|Location1.Y=1876.473mil|Location2.Y=2344.316mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad L3-1 (2235,1208.662mil) And Pad R25-2 (2398.662,800mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1356mil|Location2.X=1723.527mil|Location1.Y=1481.473mil|Location2.Y=2079mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1356mil|Location2.X=1723.527mil|Location1.Y=1481.473mil|Location2.Y=2079mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Reset-2 (175,915mil) And Pad SS0-4 (470,405mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3700.41mil|Location2.X=3765.102mil|Location1.Y=3302.181mil|Location2.Y=3333.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3700.41mil|Location2.X=3765.102mil|Location1.Y=3302.181mil|Location2.Y=3333.803mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C4-6 (2497.008,2207.992mil) And Pad C4-4 (2528.504,2207.992mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=3148.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=3148.528mil|Location1.Y=3356.472mil|Location2.Y=3423.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-12 (1695,2280mil) And Pad P1-8 (1895,2280mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2771.63mil|Location2.X=3033.528mil|Location1.Y=2690.684mil|Location2.Y=2743.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2771.63mil|Location2.X=3033.528mil|Location1.Y=2690.684mil|Location2.Y=2743.726mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-16 (1595,1624.726mil) And Pad C15-1 (1780,1606.338mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1863.139mil|Location2.X=2136.861mil|Location1.Y=1481.473mil|Location2.Y=1548.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1863.139mil|Location2.X=2136.861mil|Location1.Y=1481.473mil|Location2.Y=1548.527mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SS1-4 (676.666,405mil) And Pad SS2-4 (883.334,405mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3066.472mil|Location2.X=3178.528mil|Location1.Y=2690.684mil|Location2.Y=2904.316mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3066.472mil|Location2.X=3178.528mil|Location1.Y=2690.684mil|Location2.Y=2904.316mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C10-1 (1880,1606.338mil) And Pad C16-1 (1925,1768.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2793.205mil|Location2.X=3076.795mil|Location1.Y=4482.338mil|Location2.Y=4504.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2793.205mil|Location2.X=3076.795mil|Location1.Y=4482.338mil|Location2.Y=4504.118mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U6-7 (1604.764,3383.228mil) And Pad U6-8 (1825.236,3383.228mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3211.472mil|Location2.X=3488.29mil|Location1.Y=2853.008mil|Location2.Y=2920.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3211.472mil|Location2.X=3488.29mil|Location1.Y=2853.008mil|Location2.Y=2920.89mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C12-1 (2025,1768.662mil) And Pad U3-69 (2224.92,1801.89mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3771mil|Location2.X=4089mil|Location1.Y=4086mil|Location2.Y=4194mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3771mil|Location2.X=4089mil|Location1.Y=4086mil|Location2.Y=4194mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S3-2 (2590,3030mil) And Pad S4-2 (2830,3030mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3211.472mil|Location2.X=3278.528mil|Location1.Y=2853.008mil|Location2.Y=3152.11mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3211.472mil|Location2.X=3278.528mil|Location1.Y=2853.008mil|Location2.Y=3152.11mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-83 (2008.386,1998.74mil) And Pad C12-1 (2025,1768.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.189mil|Location2.X=4269mil|Location1.Y=2956mil|Location2.Y=3212.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.189mil|Location2.X=4269mil|Location1.Y=2956mil|Location2.Y=3212.819mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-6 (2940,2055.512mil) And Pad C22-1 (3015,1880mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.008mil|Location2.X=2858.37mil|Location1.Y=2686.472mil|Location2.Y=2753.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.008mil|Location2.X=2858.37mil|Location1.Y=2686.472mil|Location2.Y=2753.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C9-1 (1343.662,1610mil) And Pad U3-16 (1595,1624.726mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3061.906mil|Location2.X=3133.528mil|Location1.Y=2435.45mil|Location2.Y=2741.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3061.906mil|Location2.X=3133.528mil|Location1.Y=2435.45mil|Location2.Y=2741.992mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-35 (1850.906,1368.82mil) And Pad C10-1 (1880,1606.338mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3176.472mil|Location2.X=3643.528mil|Location1.Y=4476.472mil|Location2.Y=4548.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3176.472mil|Location2.X=3643.528mil|Location1.Y=4476.472mil|Location2.Y=4548.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad OE1-2 (1990,3400mil) And Pad MOTOR0-2 (2390,3405mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2971.472mil|Location2.X=3040.536mil|Location1.Y=2053.008mil|Location2.Y=2522.19mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2971.472mil|Location2.X=3040.536mil|Location1.Y=2053.008mil|Location2.Y=2522.19mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C7-1 (1785,968.662mil) And Pad U3-33 (1811.536,1368.82mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.189mil|Location2.X=4693.528mil|Location1.Y=3301.472mil|Location2.Y=3401.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.189mil|Location2.X=4693.528mil|Location1.Y=3301.472mil|Location2.Y=3401.795mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-3 (2940,2244.488mil) And Pad HELM0-3 (3440,2225mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1966.473mil|Location2.X=2263.528mil|Location1.Y=3286.472mil|Location2.Y=3683.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1966.473mil|Location2.X=2263.528mil|Location1.Y=3286.472mil|Location2.Y=3683.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad L3G-4 (780,2210mil) And Pad OLED-7 (1010,2540mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3126.472mil|Location2.X=3853.528mil|Location1.Y=1169.15mil|Location2.Y=1463.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3126.472mil|Location2.X=3853.528mil|Location1.Y=1169.15mil|Location2.Y=1463.527mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad BT-3 (1940,320mil) And Pad S6-4 (2600,102.52mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3181.472mil|Location2.X=3248.528mil|Location1.Y=3065.37mil|Location2.Y=3423.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3181.472mil|Location2.X=3248.528mil|Location1.Y=3065.37mil|Location2.Y=3423.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-6 (1995,2280mil) And Pad U3-83 (2008.386,1998.74mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3381.472mil|Location2.X=3702.11mil|Location1.Y=3302.181mil|Location2.Y=3423.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3381.472mil|Location2.X=3702.11mil|Location1.Y=3302.181mil|Location2.Y=3423.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-2 (2195,2280mil) And Pad C4-8 (2465.512,2207.992mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536mil|Location2.X=3643.528mil|Location1.Y=4086mil|Location2.Y=4548.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3536mil|Location2.X=3643.528mil|Location1.Y=4086mil|Location2.Y=4548.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S2-2 (2355,3030mil) And Pad MOTOR0-2 (2390,3405mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3763.402mil|Location2.X=4175.811mil|Location1.Y=3302.181mil|Location2.Y=3401.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3763.402mil|Location2.X=4175.811mil|Location1.Y=3302.181mil|Location2.Y=3401.795mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C4-2 (2560,2207.992mil) And Pad U4-3 (2940,2244.488mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3106.472mil|Location2.X=3193.528mil|Location1.Y=1396.473mil|Location2.Y=2104.316mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3106.472mil|Location2.X=3193.528mil|Location1.Y=1396.473mil|Location2.Y=2104.316mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C8-1 (1920,968.662mil) And Pad BT-3 (1940,320mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2196.472mil|Location2.X=2848.528mil|Location1.Y=3356.472mil|Location2.Y=3683.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2196.472mil|Location2.X=2848.528mil|Location1.Y=3356.472mil|Location2.Y=3683.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad OLED-7 (1010,2540mil) And Pad P1-14 (1595,2280mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3131mil|Location2.X=3248.528mil|Location1.Y=3356.472mil|Location2.Y=4014mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3131mil|Location2.X=3248.528mil|Location1.Y=3356.472mil|Location2.Y=4014mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S1-1 (1965,2865mil) And Pad P1-6 (1995,2280mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3863.008mil|Location2.X=3914.316mil|Location1.Y=2436.472mil|Location2.Y=2593.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3863.008mil|Location2.X=3914.316mil|Location1.Y=2436.472mil|Location2.Y=2593.528mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad C18-1 (2668.662,1360mil) And Pad R19-1 (2668.662,1450mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3961.472mil|Location2.X=4128.528mil|Location1.Y=2756.472mil|Location2.Y=2823.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3961.472mil|Location2.X=4128.528mil|Location1.Y=2756.472mil|Location2.Y=2823.528mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad EMS0&amp;1-2 (2775,1680mil) And Pad EMS0&amp;1-4 (2875,1680mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4180mil|Location2.X=4475mil|Location1.Y=1858.662mil|Location2.Y=2063.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4180mil|Location2.X=4475mil|Location1.Y=1858.662mil|Location2.Y=2063.662mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Track on layer Top Layer (3060,848.662mil) And Pad R21-1 (3155,853.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3675.684mil|Location2.X=3759.316mil|Location1.Y=2646.472mil|Location2.Y=2943.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3675.684mil|Location2.X=3759.316mil|Location1.Y=2646.472mil|Location2.Y=2943.528mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad R22-1 (2481.338,1800mil) And Pad R7-1 (2513.662,1570mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3863.008mil|Location2.X=4108.528mil|Location1.Y=2293.008mil|Location2.Y=2503.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3863.008mil|Location2.X=4108.528mil|Location1.Y=2293.008mil|Location2.Y=2503.528mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad C18-1 (2668.662,1360mil) And Pad C19-1 (2855,1208.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4345.685mil|Location2.X=4583.528mil|Location1.Y=2293.008mil|Location2.Y=2548.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4345.685mil|Location2.X=4583.528mil|Location1.Y=2293.008mil|Location2.Y=2548.528mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad R18-2 (3151.338,1405mil) And Pad C20-1 (3330,1208.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4345.685mil|Location2.X=4433.528mil|Location1.Y=2481.472mil|Location2.Y=2949.316mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4345.685mil|Location2.X=4433.528mil|Location1.Y=2481.472mil|Location2.Y=2949.316mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad R18-2 (3151.338,1405mil) And Pad R26-1 (3180,1813.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3601.338mil|Location2.X=4380mil|Location1.Y=1810mil|Location2.Y=2058.662mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3601.338mil|Location2.X=4380mil|Location1.Y=1810mil|Location2.Y=2058.662mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad R25-1 (2481.338,800mil) And Track on layer Top Layer (3060,848.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3708.008mil|Location2.X=3914.316mil|Location1.Y=2526.472mil|Location2.Y=2713.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3708.008mil|Location2.X=3914.316mil|Location1.Y=2526.472mil|Location2.Y=2713.528mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad R7-1 (2513.662,1570mil) And Pad R19-1 (2668.662,1450mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3863.008mil|Location2.X=4028.528mil|Location1.Y=2526.472mil|Location2.Y=2823.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3863.008mil|Location2.X=4028.528mil|Location1.Y=2526.472mil|Location2.Y=2823.528mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad R19-1 (2668.662,1450mil) And Pad EMS0&amp;1-2 (2775,1680mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4061.472mil|Location2.X=4433.528mil|Location1.Y=2756.472mil|Location2.Y=2949.316mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4061.472mil|Location2.X=4433.528mil|Location1.Y=2756.472mil|Location2.Y=2949.316mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad EMS0&amp;1-4 (2875,1680mil) And Pad R26-1 (3180,1813.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4341.472mil|Location2.X=4583.528mil|Location1.Y=1938.008mil|Location2.Y=2344.316mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4341.472mil|Location2.X=4583.528mil|Location1.Y=1938.008mil|Location2.Y=2344.316mil|Absolute=True">Un-Routed Net Constraint: Net GND_ANALOG Between Pad R21-1 (3155,853.662mil) And Pad C20-1 (3330,1208.662mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3510mil|Location2.X=4000mil|Location1.Y=4315mil|Location2.Y=4515mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3510mil|Location2.X=4000mil|Location1.Y=4315mil|Location2.Y=4515mil|Absolute=True">Un-Routed Net Constraint: Net BAT_5(1) Between Track on layer Top Layer (2390,3305mil) And Pad MOTOR1-1 (2680,3305mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\%E6%99%BA%E8%83%BD%E8%BD%A6%E9%98%9F\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540mil|Location2.X=3310mil|Location1.Y=4310mil|Location2.Y=4510mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Administrator\Desktop\智能车队\creative2016-lqj\creative2016.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540mil|Location2.X=3310mil|Location1.Y=4310mil|Location2.Y=4510mil|Absolute=True">Un-Routed Net Constraint: Net BAT_5(1) Between Pad OE0-1 (1420,3300mil) And Track on layer Bottom Layer (1990,3300mil)</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>

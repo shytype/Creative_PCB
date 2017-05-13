@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=BAT_3.3(1) Pin=L3G-1
+Removed Pin From Net: NetName=PC2 Pin=L3G-2
+Removed Pin From Net: NetName=PE3 Pin=L3G-3
+Removed Pin From Net: NetName=GND Pin=L3G-4
+Removed Pin From Net: NetName=PC4 Pin=L3G-5
+Removed Pin From Net: NetName=PC2 Pin=U3-78
+Removed Pin From Net: NetName=PE3 Pin=U3-90
+Removed Pin From Net: NetName=PC4 Pin=U3-92
+Removed Member From Class: ClassName=Total Member=L3G
+Added Room: Name=Total
+Added Room: Name=WiFi
